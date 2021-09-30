@@ -1,0 +1,111 @@
+<div class="container">
+    <div class="mt-4">
+        <h5>Avatar</h5>
+        <div class="align-items-center">
+            <div class="imageavatar">
+                <img src="../../../../assets/avatar.jpg" alt="">
+                <input type="file" id="upload" hidden>
+                <div class="editicon">
+                    <label for="upload">
+                        <span class="round-buttons round-buttons-sm round-buttons-border">
+                            <i class="fas fa-plus fa-sm ng-star-inserted"></i>
+                        </span>
+                    </label>
+                </div>
+            </div>
+            <div class="py-3 border-bottom">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <span class="h5 col-md-4 m-0 p-0 width-fit-content">Personal Information</span>
+                        <div class="d-flex">
+                            <span (click)="changeStatus()" *ngIf="isValid" class="round-buttons bg-blue text-light cursor-pointer">
+                                <i class="fas fa-pen fa-sm"></i>
+                            </span>
+                            <span *ngIf="!isValid" (click)="submit()" class="round-buttons bg-blue text-light cursor-pointer">
+                                <label class="m-0" style="cursor: pointer;" for="doneChanges"><i class="fas fa-check fa-sm"></i></label>
+                            </span>
+                            <span (click)="changeStatus()" *ngIf="!isValid" class="round-buttons mx-2 bg-grey round-buttons-cancel cursor-pointer">
+                                <i class="fas fa-times fa-sm"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row align-items-center heading">
+                        <div class="col-md-6 row m-0">
+                            
+                        </div>
+                    </div>
+                    <form method="POST" [formGroup]="userInfo">
+                        <div class="row justify-content-between">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>First Name</label>
+                                    <input class="form-control" formControlName="firstname" disabled type="text">
+                                    <div class="text-danger errors" *ngIf="formErrors.firstname">{{ formErrors.firstname }}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Last Name</label>
+                                    <input class="form-control" formControlName="lastname" disabled type="text">
+                                    <div class="text-danger errors" *ngIf="formErrors.firstname">{{ formErrors.lastname }}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 pl-0">
+                            <div class="form-group">
+                                <label>Email Address</label>
+                                <input class="form-control" formControlName="email" disabled type="text">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Phone Number</label>
+                                <input class="form-control" formControlName="phone" disabled type="text">
+                                <div class="text-danger errors" *ngIf="formErrors.phone">{{ formErrors.phone }}</div>
+                            </div>
+                        </div>
+                        <input type="submit" hidden id="doneChanges">
+                    </form>
+            </div>
+            <div>
+                <div class="py-3">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <span class="h5 col-md-4 mb-3 p-0 width-fit-content">Password Settings</span>
+                    </div>
+                    <form method="POST" [formGroup]="userInfo">
+                        <div class="row justify-content-between">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="m-0">Current Password</label>
+                                        <span (click)="changePassword()" *ngIf="inactive" class="round-buttons-sm mx-3 bg-blue text-light cursor-pointer">
+                                            <i class="fas fa-pen fa-sm"></i>
+                                        </span>
+                                    <input class="form-control mt-2" formControlName="currentPassword" type="text">
+                                    <div class="text-danger errors" *ngIf="formErrors.firstname"></div>
+                                </div>
+                            </div>
+                            <div *ngIf="inactive == false" class="row justify-content-between">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>New Password</label>
+                                        <input class="form-control" formControlName="newPassword" type="text">
+                                        <div class="text-danger errors" *ngIf="formErrors.firstname">{{ formErrors.newPassword }}</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Confirm Password</label>
+                                        <input class="form-control" formControlName="confirmPassword" type="text">
+                                        <div class="text-danger errors" *ngIf="formErrors.firstname">{{ formErrors.confirmPassword }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <input type="submit" class="btn btn-primary">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

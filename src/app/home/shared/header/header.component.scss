@@ -1,0 +1,30 @@
+.header{
+    display: flex;
+}
+.rounded-button{
+    height: 36px;
+    width: 36px;
+    border-radius: 50px;
+    background-color: #ebebfc;
+    padding: 3px;
+    margin-top: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+.name{
+    width: 80%;
+    padding-right: 20px;
+    padding-left: 20px;
+    text-align: right;
+    font-family: "gillroy-semi";
+}
+.dropdown-toggle{
+    position: relative;
+    cursor: pointer;
+}
+.imageround{
+    border-radius: 50%;
+    width: 42px;
+}

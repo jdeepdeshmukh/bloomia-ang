@@ -1,0 +1,22 @@
+.heading{
+    position: relative;
+    width: 80%;
+    top: 3.5rem;
+    left: 1.5rem;
+    z-index: 2;
+}
+#myVideo{
+    width: 100%;
+    object-fit: contain;
+    transform: scale(2.1);
+}
+.heading span{
+    padding: 16px 21px;
+    text-align: center;
+    border-radius: .8rem;
+    background: #fff;
+}
+#logo{
+    width: 130px;
+    height: 29px;
+}
