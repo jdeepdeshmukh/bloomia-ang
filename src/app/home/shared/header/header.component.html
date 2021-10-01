@@ -1,19 +1,20 @@
 <div class="container mt-4 header">
-    <span class="rounded-button">
+    <span *ngIf="router" routerLink="/home" class="rounded-button">
         <i class="fas fa-arrow-left"></i>
     </span>
     <div class="name">
         <div class="font-weight-600">Welcome,</div>
-        <div class="h4 m-0">Jaydeep Deshmukh</div>
+        <div class="h4 m-0">{{name}}</div>
     </div>
     <div class="dropdown">
-        <span class="dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+        <span class="dropdown-toggle" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true"
         aria-expanded="false" type="button">
             <img class="imageround" src="../../../../assets/avatar.jpg" alt="">
         </span>
-    </div>
-    <div aria-labelledby="dropdownMenuButton" class="dropdown-menu">
-        <a routerLink="/profile" class="dropdown-item"><i class="far fa-user-circle"></i>Profile</a>
-        <a href="#" class="dropdown-item"><i class="fas fa-sign-out-alt"></i>Logout</a>
+        <div aria-labelledby="dropdownMenuButton" style="position: absolute; will-change: transform;
+        top: 0; left: 0; transform: translate3d(-70px, 42px, 0px);" class="dropdown-menu">
+            <a class="dropdown-item" routerLink="/home/profile"><i class="far fa-user-circle me-2"></i>Profile</a>
+            <a class="dropdown-item" routerLink="/login"><i class="fas fa-sign-out-alt me-2"></i>Logout</a>
+        </div>
     </div>
 </div>

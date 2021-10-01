@@ -13,6 +13,9 @@
     align-items: center;
     cursor: pointer;
 }
+.rounded-button:focus{
+    outline: none;
+}
 .name{
     width: 80%;
     padding-right: 20px;
@@ -27,4 +30,22 @@
 .imageround{
     border-radius: 50%;
     width: 42px;
+}
+.dropdown-menu{
+    font-family: "gillroy-heavy"!important;
+    border: none;
+    box-shadow: 0 1px 4px 0 #dadada!important;
+    border-radius: 1.05rem!important;
+}
+.dropdown-menu .dropdown-item{
+    font-family: "gillroy-semi"!important;
+    border-radius: .6em;
+}
+.dropdown-menu:focus .dropdown-item:hover{
+    color: #16181b;
+    text-decoration: none;
+    background-color: #f8f9fa;
+}
+a{
+    text-decoration: none;
 }

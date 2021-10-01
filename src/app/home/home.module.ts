@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms'
+import { SelectDropDownModule } from 'ngx-select-dropdown';
 
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
@@ -23,7 +24,8 @@ import { ConfigurationComponent } from './pages/configuration/configuration.comp
     CommonModule,
     HomeRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SelectDropDownModule
   ]
 })
 export class HomeModule { }
