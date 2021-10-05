@@ -19,10 +19,10 @@
         
         <div class="border">
            <svg>
-              <circle [ngClass]="addClass ? 'circle1' : 'circle2'" cx="215" cy="215" r="150"></circle>
+              <circle class="circle1" cx="215" cy="215" r="150"></circle>
            </svg>
         </div>
-        <div (click)="play()" class="circle">
+        <div (click)="secondFunction()" id="sphere" class="sphere2">
               <span class="timer"></span>
               <span><i class="fas fa-play"></i></span>
               <span>Long Squeeze</span>
