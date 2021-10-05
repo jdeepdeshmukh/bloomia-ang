@@ -23,5 +23,6 @@ import { ForgetComponent } from './pages/forget/forget.component';
     ReactiveFormsModule,
     FormsModule
   ]
+  
 })
 export class AuthModule { }

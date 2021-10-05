@@ -1,20 +1,21 @@
 <div class="container mt-4 header">
-    <span *ngIf="router" routerLink="/home" class="rounded-button">
-        <i class="fas fa-arrow-left"></i>
-    </span>
+    <div *ngIf="_router.url == '/home/profile'" class="router">
+        <span [routerLink]="'/home'" class="rounded-button">
+            <i class="fas fa-arrow-left"></i>
+        </span>
+    </div>
     <div class="name">
         <div class="font-weight-600">Welcome,</div>
-        <div class="h4 m-0">{{name}}</div>
+        <div class="h4 m-0 text-align-right">{{name}}</div>
     </div>
     <div class="dropdown">
         <span class="dropdown-toggle" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true"
         aria-expanded="false" type="button">
             <img class="imageround" src="../../../../assets/avatar.jpg" alt="">
         </span>
-        <div aria-labelledby="dropdownMenuButton" style="position: absolute; will-change: transform;
-        top: 0; left: 0; transform: translate3d(-70px, 42px, 0px);" class="dropdown-menu">
+        <div aria-labelledby="dropdownMenuButton" class="dropdown-menu">
             <a class="dropdown-item" routerLink="/home/profile"><i class="far fa-user-circle me-2"></i>Profile</a>
-            <a class="dropdown-item" routerLink="/login"><i class="fas fa-sign-out-alt me-2"></i>Logout</a>
+            <a class="dropdown-item" routerLink="/auth"><i class="fas fa-sign-out-alt me-2"></i>Logout</a>
         </div>
     </div>
 </div>

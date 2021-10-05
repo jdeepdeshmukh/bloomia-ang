@@ -80,3 +80,10 @@ select:focus{
     padding-right: 10px;
     float: right;
 }
+.kegel{
+    justify-content: space-between;
+}
+.reverseKegelActive{
+    color: #979797;
+    pointer-events: none;
+}

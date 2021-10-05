@@ -10,7 +10,7 @@
 .logo img{
     width: 200px;
 }
-.title h4{
+.title h5{
     display: flex;
     justify-content: center;
     font-family: "riffic";
@@ -23,28 +23,49 @@
     font-size: 13px;
 }
 .form{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    width: 100%;
 }
-.input-group{
-    display: flex;
+.form-group{
+    margin-bottom: .8rem;
+    width: 65%;
+    margin-left: 9rem;
 }
-.input{
-    width: 360px;
-    padding: 3px 20px;
-    margin-bottom: 12px;
-    border-radius: 10px;
-    font-size: 13px;
-    border: 0;
+.input-group1{
+    display: inline-block;
+    width: 71%;
+}
+.authinput{
+    width: 100%;
+    background-color: #ebebeb;
+    border: none;
+    border: .5rem;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+    font-size: .8rem;
+}
+.authinput:focus{
+    outline: none;
+    box-shadow: none;
+}
+.input-group-append{
+    display: inline-block;
+    text-align: center;
+    width: 10%;
+    padding: 6px;
+    font-size: .8rem;
+    background-color: #ebebeb;
+    border: none;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
 }
 ::placeholder{
     color: black;
     font-weight: 600;
 }
-input:focus{
-    outline: none;
+.errors{
+    font-size: 12px;
 }
 .icon{
     display: flex;
@@ -60,13 +81,12 @@ input:focus{
 }
 .button .submit{
     padding: 5px 20px;
-    width: 374px;
-    height: 30px;
-    margin-left: 10px;
+    width: 53%;
     background-color: rgb(47, 69, 197);
     color: #fff;
     align-items: center;
     margin-bottom: 16px;
+    border-radius: .5rem;
     font-size: 13px;
 }
 .custom-text{

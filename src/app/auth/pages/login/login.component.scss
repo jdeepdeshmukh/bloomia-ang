@@ -10,7 +10,7 @@
 .logo img{
     width: 200px;
 }
-.title h4{
+.title h3{
     display: flex;
     justify-content: center;
     font-family: "riffic";
@@ -23,28 +23,50 @@
     font-size: 16px;
 }
 .form{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    width: 65%;
+    margin: auto;
 }
-.input-group{
-    display: flex;
+.form-group{
+    margin-bottom: .8rem;
 }
-.input{
-    width: 360px;
-    padding: 3px 20px;
-    margin-bottom: 12px;
-    border-radius: 10px;
-    font-size: 16px;
-    border: 0;
+.input-group1{
+    display: inline-block;
+    width: 90%;
+}
+.authinput{
+    width: 100%;
+    background-color: #ebebeb;
+    border: none;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+}
+.authinput:focus{
+    outline: none;
+    box-shadow: none;
+}
+.input-group-append{
+    display: inline-block;
+    text-align: center;
+    width: 10%;
+    height: 100%;
+    padding: 6px;
+    background-color: #ebebeb;
+    border: none;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
 }
 ::placeholder{
     color: black;
     font-weight: 600;
 }
-input:focus{
-    outline: none;
+::placeholder{
+    color: black;
+    font-weight: 600;
+}
+.errors{
+    font-size: 12px;
 }
 .icon{
     display: flex;
@@ -54,7 +76,6 @@ input:focus{
     border-radius: 10px;
 }
 .forgot{
-    width: 390px;
     text-align: right;
     margin-bottom: 11px;
     font-weight: 600;
@@ -70,14 +91,14 @@ input:focus{
     align-items: center;
 }
 .button .submit{
-    padding: 5px 20px;
-    width: 385px;
-    height: 40px;
+    padding: 10px 20px;
+    width: 100%;
     background-color: rgb(47, 69, 197);
     color: #fff;
     align-items: center;
     margin-bottom: 16px;
     font-size: 15px;
+    font-family: "gillroy-semi";
     border-radius: 8px;
 }
 .custom-text{
@@ -88,15 +109,17 @@ input:focus{
     color: #979797;
     font-size: 13px;
     font-weight: 400;
+    font-family: "gillroy-semi";
 }
 .else p{
     color: #979797;
-    font-family: "gilroy";
+    font-family: "gillroy-semi";
 }
 .googlebtn{
     background-color: transparent;
     border: 1px solid black;
     border-radius: 10px;
+    font-family: "gillroy-semi";
     padding: 9px 40px;
 }
 .googlebtn span, i{

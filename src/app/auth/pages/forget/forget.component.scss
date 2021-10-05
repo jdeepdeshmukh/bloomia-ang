@@ -10,7 +10,12 @@
 .logo img{
     width: 200px;
 }
-.title h4{
+.body{
+    width: 70%;
+    margin: auto;
+    margin-top: 7rem;
+}
+.title h3{
     display: flex;
     justify-content: center;
     font-family: "riffic";
@@ -21,31 +26,6 @@
     font-family: "gillroy-medium";
     color: #979797;
     font-size: 16px;
-}
-.form{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-.input-group{
-    display: flex;
-}
-.input{
-    width: 360px;
-    height: 40px;
-    padding: 0;
-    background-color: #ebebeb;
-    margin-bottom: 12px;
-    border-radius: 10px;
-    font-size: 16px;
-}
-.container{
-    margin-top: 8rem;
-}
-.form-group{
-    margin-bottom: 10px;
-    width: 100%;
 }
 .input-group{
     display: inline-block;
@@ -61,9 +41,6 @@
     border-bottom-left-radius: 6px;
 }
 .authinput:focus{
-    outline: none;
-}
-input:focus{
     outline: none;
 }
 .input-group-append{
@@ -83,6 +60,7 @@ input:focus{
 }
 .button{
     width: 100%;
+    font-family: "gillroy-semi";
 }
 .signinbtn{
     background-color: rgb(47, 69, 197);
@@ -93,26 +71,6 @@ input:focus{
     border-radius: 8px;
     width: 100%;
 }
-.icon{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #ebebeb;
-    height: 40px;
-    border-radius: 10px;
-    padding-right: 10px;
-}
-.forgot{
-    width: 390px;
-    text-align: right;
-    margin-bottom: 11px;
-    font-weight: 600;
-}
-.forgot a{
-    cursor: pointer;
-    text-decoration: none;
-    color: #979797;
-}
 .custom-text{
     position: relative;
     display: flex;
@@ -122,24 +80,10 @@ input:focus{
     font-size: 13px;
     font-weight: 400;
 }
-.else p{
-    color: #979797;
-    font-family: "gilroy";
-}
-.googlebtn{
-    background-color: transparent;
-    border: 1px solid black;
-    border-radius: 10px;
-    padding: 9px 40px;
-}
-.googlebtn span, i{
-    font-size: 12px;
-    font-weight: 400;
-}
 .bottom{
     position: fixed;
     align-items: center;
-    bottom: 20px;
+    margin-top: 9rem;
     color: #979797;
     font-size: 16px;
     font-weight: 400;
@@ -147,4 +91,7 @@ input:focus{
 .bottom a{
     text-decoration: none;
     color: #000;
+}
+.errors{
+    font-size:12px;
 }

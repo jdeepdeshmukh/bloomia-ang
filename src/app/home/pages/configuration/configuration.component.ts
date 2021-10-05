@@ -13,12 +13,7 @@ export class ConfigurationComponent implements OnInit {
   exercises = ["Beginner", "Intermediate", "Advance", "Quick"]
   selectedExercise = "Beginner"
   values = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60]
-  long : {
-    squeeze : 0,
-    rest : 0,
-    reps : 0
-  }
-  longSqueezeValue = 0
+  longSqueezeValue = 0;
   longRestValue = 0
   longRepsValue = 0
   shortSqueezeValue = 0
@@ -27,89 +22,34 @@ export class ConfigurationComponent implements OnInit {
   rkSqueezeValue = 0
   rkRestValue = 0
   rkRepsValue = 0
+  reverseKegelActive = true;
 
   changeExercise(name){
     this.selectedExercise = name;
   }
 
-  // changeValue(interval, type, value){
-  //   if(interval == "long"){
-  //     this.long[type] = value;
-  //   }
-
-  //   console.log(interval, type, value)
-  //   console.log(this.long);
-    
-    
-  // }
-
-  longSqueezeValueChange(value){
-    // this._configServ.longSqueezeValue.next(this.longSqueezeValue);
-    // switch (value){
-    //   case this.longSqueezeValue : this.longSqueezeValue = value; break;
-    // }
-    this.longSqueezeValue = value
-    // console.log("value",this.longSqueezeValue);
-    
-    this._configServ.longSqueezeValue.next(this.longSqueezeValue);
-    // this._configServ.longSqueezeValue.subscribe(console.log);
-    
+  changeValue(interval, value){
+    switch(interval){
+      case 1: this.longSqueezeValue = value; this._configServ.longSqueezeValue.next(this.longSqueezeValue); break;
+      case 2: this.longRestValue = value; this._configServ.longRestValue.next(this.longRestValue); break;
+      case 3: this.longRepsValue = value; this._configServ.longRepsValue.next(this.longRepsValue); break;
+      case 4: this.shortSqueezeValue = value; this._configServ.shortSqueezeValue.next(this.shortSqueezeValue); break;
+      case 5: this.shortRestValue = value; this._configServ.shortRestValue.next(this.shortRestValue); break;
+      case 6: this.shortRepsValue = value; this._configServ.shortRepsValue.next(this.shortRepsValue); break;
+      case 7: this.rkSqueezeValue = value; this._configServ.rkSqueezeValue.next(this.rkSqueezeValue); break;
+      case 8: this.rkRestValue = value; this._configServ.rkRestValue.next(this.rkRestValue); break;
+      case 9: this.rkRepsValue = value; this._configServ.rkRepsValue.next(this.rkRepsValue); break;
+    };
   }
 
-  longRestValueChange(value){
-    this.longRestValue = value;
-
-    this._configServ.longRestValue.next(this.longRestValue);
+  reverseKegel(){
+    this.reverseKegelActive = !this.reverseKegelActive;
   }
 
-  longRepsValueChange(value){
-    this.longRepsValue = value;
-
-    this._configServ.longRepsValue.next(this.longRepsValue);
-  }
-
-  shortSqueezeValueChange(value){
-    this.shortSqueezeValue = value;
-
-    this._configServ.shortSqueezeValue.next(this.shortSqueezeValue);
-  }
-
-  shortRestValueChange(value){
-    this.shortRestValue = value;
-
-    this._configServ.shortRestValue.next(this.shortRestValue);
-  }
-
-  shortRepsValueChange(value){
-    this.shortRepsValue = value;
-
-    this._configServ.shortRepsValue.next(this.shortRepsValue);
-  }
-
-  rkSqueezeValueChange(value){
-    this.rkSqueezeValue = value;
-
-    this._configServ.rkSqueezeValue.next(this.rkSqueezeValue);
-  }
-
-  rkRestValueChange(value){
-    this.rkRestValue = value;
-
-    this._configServ.rkRestValue.next(this.rkRestValue);
-  }
-
-  rkRepsValueChange(value){
-    this.rkRepsValue = value;
-
-    this._configServ.rkRepsValue.next(this.rkRepsValue);
-  }
-
-  constructor(private _headerServ : HeaderService, private _configServ : ConfigurationService) { }
+  constructor(private _headerServ : HeaderService, private _configServ : ConfigurationService) {
+   }
 
   ngOnInit(): void {
-    new SlimSelect({
-      select : "single"
-    });
   }
 
 }
