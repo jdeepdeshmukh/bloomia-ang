@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms'
 import { SelectDropDownModule } from 'ngx-select-dropdown';
+import { ImageCropperModule } from 'ngx-image-cropper';
 
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
@@ -25,7 +26,10 @@ import { ConfigurationComponent } from './pages/configuration/configuration.comp
     HomeRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    SelectDropDownModule
-  ]
+    SelectDropDownModule,
+    ImageCropperModule
+  ],
+  providers : [
+    ]
 })
 export class HomeModule { }

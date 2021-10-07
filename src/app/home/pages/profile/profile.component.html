@@ -3,14 +3,48 @@
         <h5>Avatar</h5>
         <div class="align-items-center">
             <div class="imageavatar">
-                <img src="../../../../assets/avatar.jpg" alt="">
-                <input type="file" #file id="upload" hidden>
+                <img src="../../../../assets/avatar.jpg" id="avatarImage" alt="">
+                <form>
+                    <input (change)="fileChangeEvent($event)" type="file" #file id="upload" hidden>
+                </form>
                 <div class="editicon">
                     <label for="upload">
-                        <span (click)="upload(file)" class="round-buttons round-buttons-sm round-buttons-border">
+                        <span class="round-buttons round-buttons-sm round-buttons-border">
                             <i class="fas fa-plus fa-sm ng-star-inserted"></i>
                         </span>
                     </label>
+                </div>
+            </div>
+            <div class="dialog" *ngIf="imageUploaded">
+                <!-- <span class="dropdown-toggle" *ngIf="imageUploaded" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false">
+                </span> -->
+                <div class="dropdown-menu">
+                    <div class="show-cropped" *ngIf="showCropped">
+                        <h5>Preview</h5>
+                        <img class="mainImage" [src]="croppedImage"/>
+                        <div class="dialog-buttons">
+                            <button (click)="back()" class="btn">Back</button>
+                            <button (click)="uploadImage()" class="btn btn-success">Save</button>
+                        </div>
+                    </div>
+                    <div class="text-center crop" *ngIf="!showCropped">
+                        <h5>Crop Image</h5>
+                        <image-cropper 
+                        [imageChangedEvent]="imageChangedEvent" 
+                        [maintainAspectRatio]="true" 
+                        [aspectRatio]="2 / 2"
+                        [resizeToWidth]="256" 
+                        format="png" 
+                        (imageLoaded)="imageLoaded()"
+                        (imageCropped)="imageCropped($event)"
+                        (cropperReady)="cropperReady()"
+                        (loadImageFailed)="loadImageFailed()"></image-cropper>
+                        <div class="dialog-buttons">
+                            <button (click)="cancelImage()" class="btn">Cancel</button>
+                            <button (click)="showCroppedImage()" class="btn">Preview</button>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="py-3 border-bottom">
@@ -20,7 +54,7 @@
                             <span (click)="changeStatus()" *ngIf="isValid" class="round-buttons bg-blue text-light cursor-pointer">
                                 <i class="fas fa-pen fa-sm"></i>
                             </span>
-                            <span *ngIf="!isValid" (click)="submit()" class="round-buttons bg-blue text-light cursor-pointer">
+                            <span *ngIf="!isValid" (click)="profileUpdate()" class="round-buttons bg-blue text-light cursor-pointer">
                                 <label class="m-0" style="cursor: pointer;" for="doneChanges"><i class="fas fa-check fa-sm"></i></label>
                             </span>
                             <span (click)="changeStatus()" *ngIf="!isValid" class="round-buttons mx-2 bg-grey round-buttons-cancel cursor-pointer">
@@ -38,15 +72,15 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>First Name</label>
-                                    <input class="form-control" formControlName="firstname" disabled type="text">
-                                    <div class="text-danger errors" *ngIf="formErrors.firstname">{{ formErrors.firstname }}</div>
+                                    <input class="form-control" formControlName="first_name" disabled type="text">
+                                    <div class="text-danger errors" *ngIf="formErrors.first_name">{{ formErrors.first_name }}</div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Last Name</label>
-                                    <input class="form-control" formControlName="lastname" disabled type="text">
-                                    <div class="text-danger errors" *ngIf="formErrors.lastname">{{ formErrors.lastname }}</div>
+                                    <input class="form-control" formControlName="last_name" disabled type="text">
+                                    <div class="text-danger errors" *ngIf="formErrors.last_name">{{ formErrors.last_name }}</div>
                                 </div>
                             </div>
                         </div>
@@ -59,8 +93,8 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Phone Number</label>
-                                <input class="form-control" formControlName="phone" disabled type="text">
-                                <div class="text-danger errors" *ngIf="formErrors.phone">{{ formErrors.phone }}</div>
+                                <input class="form-control" formControlName="contact" disabled type="text">
+                                <div class="text-danger errors" *ngIf="formErrors.contact">{{ formErrors.contact }}</div>
                             </div>
                         </div>
                         <input type="submit" hidden id="doneChanges">
@@ -70,6 +104,12 @@
                 <div class="py-3">
                     <div class="d-flex align-items-center justify-content-between">
                         <span class="h5 col-md-4 mb-3 p-0 width-fit-content">Password Settings</span>
+                    </div>
+                    <div *ngIf="success" class="message text-success">
+                        {{success}}
+                    </div>
+                    <div *ngIf="error" class="message text-danger">
+                        {{error}}
                     </div>
                     <form method="POST" [formGroup]="passwordForm">
                         <div class="row justify-content-between">

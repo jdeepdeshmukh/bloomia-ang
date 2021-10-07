@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { valueChanges } from 'src/app/helper/formerror.helper';
 import { AuthserviceService } from 'src/app/auth/services/authservice.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -11,12 +12,14 @@ import { AuthserviceService } from 'src/app/auth/services/authservice.service';
 export class SignupComponent implements OnInit {
 
   userRegistration : FormGroup;
+  message : string;
 
   createForm(){
     this.userRegistration = this._fb.group({
-      firstname : ["", Validators.required],
-      lastname : ["", Validators.required],
+      first_name : ["", Validators.required],
+      last_name : ["", Validators.required],
       email : ["", [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")]],
+      number : [123456789],
       password : ["", [Validators.required, Validators.minLength(6)]]
     }
     )
@@ -27,17 +30,17 @@ export class SignupComponent implements OnInit {
   }
 
   formErrors = {
-    firstname: '',
-    lastname  : '',
+    first_name: '',
+    last_name  : '',
     email: '',
     password: ''
   };
 
   formErrorMessages = {
-    firstname: {
+    first_name: {
       required: 'First name is Required'
     },
-    lastname: {
+    last_name: {
       required: 'Last name is Required'
     },
     email: {
@@ -51,7 +54,7 @@ export class SignupComponent implements OnInit {
   };
 
 
-  constructor(private _fb : FormBuilder, private _authService : AuthserviceService) {
+  constructor(private _fb : FormBuilder, private _authService : AuthserviceService, private _router : Router) {
   }
 
   submit(){
@@ -62,9 +65,20 @@ export class SignupComponent implements OnInit {
     }
     console.log(this.userRegistration.value);
 
-    this._authService.signup(this.userRegistration.value).subscribe((data)=>{
-      console.log(data);
-      
+    this._authService.signup(this.userRegistration.value).subscribe((result)=>{
+      console.log(result);
+      if(result.result.sucess == true){
+        this._router.navigate(["/"])
+    }
+    }, (err)=>{
+      if(err){
+        if(err.error == 400){
+          this.message = "Email already exists"
+        }
+        else{
+          this.message = "Something went wrong"
+        }
+      }
     })
 
   }

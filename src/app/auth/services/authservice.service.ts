@@ -10,10 +10,13 @@ export class AuthserviceService {
   constructor(private _httpServices: HttpserviceService) { }
   
   login(obj){
-    return this._httpServices.post(environment.serverUrl, obj);
+    return this._httpServices.post(environment.serverUrl+'users/login', obj);
   }
   signup(obj){
-    return this._httpServices.post(environment.serverUrl, obj);
+    return this._httpServices.post(environment.serverUrl+'users/signup', obj);
+  }
+  forgotPassword(obj){
+    return this._httpServices.update(environment.serverUrl+'users/forgetPassword', obj);
   }
 }
 

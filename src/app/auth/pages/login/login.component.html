@@ -8,6 +8,9 @@
                 <h3>Welcome Back to Bloomia.</h3>
                 <p>Please enter your address and password to login</p>
             </div>
+            <div class="message text-danger text-center mb-2">
+                {{message}}
+            </div>
             <form method="POST" [formGroup]="userLogin">
                 <div class="form">
                     <div class="form-group">
@@ -21,7 +24,7 @@
                     </div>
                     <div class="form-group">
                         <div class="input-group1">
-                            <input type="text" placeholder="Enter your password" formControlName="password" class="authinput form-control">
+                            <input type="password" placeholder="Enter your password" formControlName="password" class="authinput form-control">
                         </div>
                         <div class="input-group-append">
                             <span><i class="fas fa-lock"></i></span>

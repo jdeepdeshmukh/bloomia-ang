@@ -6,7 +6,8 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class HeaderService {
 
-  constructor() { }
-
-  subject = new BehaviorSubject("Jaydeep Deshmukh");
+  constructor() {
+  }
+  
+  subject = new BehaviorSubject("");
 }

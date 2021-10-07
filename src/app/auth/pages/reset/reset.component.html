@@ -9,18 +9,27 @@
                     <h3>Welcome Back to Bloomia.</h3>
                     <p>Please enter your address associated with bloomia account</p>
                 </div>
-                <form method="POST" [formGroup]="forgotForm">
+                <form method="POST" [formGroup]="resetForm">
                     <div class="form-group">
                         <div class="input-group">
-                            <input type="text" placeholder="Enter your email address" formControlName = "email" class="authinput form-control">
+                            <input type="text" placeholder="Enter your email address" class="authinput form-control">
                         </div>
                         <div class="input-group-append">
                             <span><i class="fal fa-envelope"></i></span>
                         </div>
-                        <div class="text-danger errors mx-2" *ngIf="formErrors.email">{{ formErrors.email }}</div>
+                        <!-- <div class="text-danger errors mx-2" *ngIf="formErrors.email">{{ formErrors.email }}</div> -->
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input type="text" placeholder="Enter your email address" class="authinput form-control">
+                        </div>
+                        <div class="input-group-append">
+                            <span><i class="fal fa-envelope"></i></span>
+                        </div>
+                        <!-- <div class="text-danger errors mx-2" *ngIf="formErrors.email">{{ formErrors.email }}</div> -->
                     </div>
                     <div class="button">
-                        <input type="submit" (click)="forgotPassword()" class="signinbtn btn" value="Submit">
+                        <input type="submit" (click)="resetPassword()" class="signinbtn btn" value="Submit">
                     </div>
                 </form>
             </div>

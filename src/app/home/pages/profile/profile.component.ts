@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { valueChanges, passwordValidation, passNotSame } from 'src/app/helper/formerror.helper';
 import { HeaderService } from 'src/app/home/services/header.service';
+import { UserService } from 'src/app/home/services/user.service';
+import { ImageCroppedEvent, base64ToFile } from 'ngx-image-cropper';
 
 @Component({
   selector: 'app-profile',
@@ -14,20 +16,33 @@ export class ProfileComponent implements OnInit {
 
   userInfo : FormGroup
   passwordForm : FormGroup
-
-  user : {
-    firstname : "jaydeep",
-    lastname : "deshmukh",
-    email : "jay@gmail.com",
-    phone : "123456"
+  success : String;
+  error : String;
+  imageUploaded = false;
+  imagePath : '../../../../assets/avatar.jpg';
+  showCropped = false;
+  finalFile;
+  
+  dataURItoBlob(dataURI) {
+    const byteString = window.atob(dataURI);
+    const arrayBuffer = new ArrayBuffer(byteString.length);
+    const int8Array = new Uint8Array(arrayBuffer);
+    for (let i = 0; i < byteString.length; i++) {
+      int8Array[i] = byteString.charCodeAt(i);
     }
+    const blob = new Blob([int8Array], { type: 'image/png' });    
+    return blob;
+ }
+
+  imageChangedEvent: any = '';
+  croppedImage: any = '';
 
   createForm(){
     this.userInfo = this._fb.group({
-      firstname : ["", Validators.required],
-      lastname : ["", Validators.required],
+      first_name : ["", Validators.required],
+      last_name : ["", Validators.required],
       email : [""],
-      phone : ["", [Validators.required, Validators.minLength(10)]]
+      contact : [null, [Validators.required, Validators.minLength(10)]]
     }
     )
 
@@ -52,22 +67,22 @@ export class ProfileComponent implements OnInit {
   }
 
   formErrors = {
-    firstname: '',
-    lastname  : '',
-    phone: '',
+    first_name: '',
+    last_name  : '',
+    contact: '',
     currentPassword: '',
     newPassword: '',
     confirmPassword: ''
   };
 
   formErrorMessages = {
-    firstname: {
+    first_name: {
       required: 'First name is Required'
     },
-    lastname: {
+    last_name: {
       required: 'Last name is Required'
     },
-    phone: {
+    contact: {
       required: 'Phone number is Required',
       minlength: 'Minimum length must be 10'
     },
@@ -87,73 +102,179 @@ export class ProfileComponent implements OnInit {
     }
   };
 
-  constructor(private _fb : FormBuilder, private _headerServ : HeaderService) {
+  constructor(private _fb : FormBuilder, private _headerServ : HeaderService, private _userServ : UserService) {
    }
 
-   upload(file){
-     var file = file.files[0];
+   fileChangeEvent(event: any): void {
+    this.imageUploaded = true;
+    this.imageChangedEvent = event;
+  }
+  imageCropped(event: ImageCroppedEvent) {
+      this.croppedImage = event.base64;
+      const file = new Image();
+      file.src = this.croppedImage;
+
+      const base64 = this.croppedImage;
+      const imageName = 'name.jpeg';
+      const imageBlob = base64ToFile(base64);
+      const imageFile = new File([imageBlob], imageName, { type: 'image/png' });
+
+      
+      console.log("final", imageFile);
+      
+
+      this.finalFile = imageFile;
+
+  }
+  showCroppedImage(){
+    console.log("showcropped");
+    this.showCropped = !this.showCropped;
+  }
+  back(){
+    this.showCropped = !this.showCropped;
+   }
+  imageLoaded() {
+      /* show cropper */
+  }
+  cropperReady() {
+      /* cropper ready */
+  }
+  loadImageFailed() {
+      /* show message */
+  }
+
+   uploadImage(){
+
+     var form = new FormData();
+     form.append("attachments", this.finalFile)
+     this._userServ.imageUpload(form).subscribe((result)=>{
+       console.log(result);
+      if(result.sucess == true)
+      {
+        this.imageUploaded = true;
+      }
+
+      document.getElementById("avatarImage").setAttribute("src", "https://bloomia.herokuapp.com/"+String(result.data.profileImage))
+       
+     })
+
+     
+   }
+
+   cancelImage(){
+    this.imageUploaded = false;
    }
 
   changeStatus(){
     this.isValid = !this.isValid;
     if(this.isValid)
     {
-      this.userInfo.controls.firstname.disable()
-      this.userInfo.controls.lastname.disable()
-      this.userInfo.controls.phone.disable()
+      this.userInfo.controls.first_name.disable()
+      this.userInfo.controls.last_name.disable()
+      this.userInfo.controls.contact.disable()
     }
     else
     {
-      this.userInfo.controls.firstname.enable()
-      this.userInfo.controls.lastname.enable()
-      this.userInfo.controls.phone.enable()
+      this.userInfo.controls.first_name.enable()
+      this.userInfo.controls.last_name.enable()
+      this.userInfo.controls.contact.enable()
     }
   }
 
   changePassword(){
     this.inactive = !this.inactive;
   }
+
+
   submitPassword(){
     if (this.passwordForm.invalid) {
       this.passwordForm.markAllAsTouched();
       this.formErrors = valueChanges(this.passwordForm, {...this.formErrors}, this.formErrorMessages);
       return;
     }
+
     console.log(this.passwordForm.value)
+
+    this._userServ.changePassword(
+      {
+        "newPassword" : this.passwordForm.value.newPassword,
+        "password" : this.passwordForm.value.currentPassword
+      }
+       ).subscribe((result)=>{
+      console.log(result);
+      if(result.sucess){
+        this.success = "Password successfully updated"
+        this.error = ""
+      }
+      else if(result.status == 403){
+        this.error = "Current password not matched"
+        this.success = ""
+      }
+      else{
+        this.error = "Something went wrong"
+        this.success = ""
+      }
+    }, (err)=>{
+      if(err){
+        this.error = "Something went wrong"
+        this.success = ""
+
+      }
+    });
+
+
+    this.inactive = !this.inactive
+
+    this.passwordForm.reset();
   }
-  submit(){
-    if (this.userInfo.invalid) {
+
+
+  profileUpdate(){
+    if(this.userInfo.invalid) {
       this.userInfo.markAllAsTouched();
       this.formErrors = valueChanges(this.userInfo, {...this.formErrors}, this.formErrorMessages);
       return;
     }
-    this._headerServ.subject.next(this.userInfo.value.firstname+' '+this.userInfo.value.lastname);
+    console.log("hello",typeof(this.userInfo.value.contact));
+
+    this._userServ.profileUpdate(this.userInfo.value).subscribe((result)=>{
+      // console.log(this.userInfo.value);
+      console.log(result);
+    });
+
+    this._headerServ.subject.next(this.userInfo.value.first_name+' '+this.userInfo.value.last_name);
     this.isValid = !this.isValid
     if(this.isValid)
     {
-      this.userInfo.controls.firstname.disable()
-      this.userInfo.controls.lastname.disable()
-      this.userInfo.controls.phone.disable()
+      this.userInfo.controls.first_name.disable()
+      this.userInfo.controls.last_name.disable()
+      this.userInfo.controls.contact.disable()
     }
     else
     {
-      this.userInfo.controls.firstname.enable()
-      this.userInfo.controls.lastname.enable()
-      this.userInfo.controls.phone.enable()
+      this.userInfo.controls.first_name.enable()
+      this.userInfo.controls.last_name.enable()
+      this.userInfo.controls.contact.enable()
     }
   }
 
   ngOnInit(): void {
     this.createForm()
 
-    this.userInfo.setValue({
-      firstname : "Jaydeep",
-      lastname : "Deshmukh",
-      email : "jay@gmail.com",
-      phone : "1234567890"
-      })
+    // this._headerServ.subject.next()
+   
 
+    this._userServ.getUser().subscribe((result)=>{
+      // console.log("he", result);
+      this._headerServ.subject.next(result.result.data.first_name+' '+result.result.data.last_name);
+      this.userInfo.setValue({
+        first_name : result.result.data.first_name,
+        last_name : result.result.data.last_name,
+        email : result.result.data.email,
+        contact : result.result.data.contact
+    });
+    document.getElementById("avatar").setAttribute("src", "https://bloomia.herokuapp.com/"+String(result.result.data.profileImage))
+  });
   }
-
 
 }

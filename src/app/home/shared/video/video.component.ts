@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { timer } from 'rxjs';
 import { ConfigurationService } from 'src/app/home/services/configuration.service';
 
 @Component({
@@ -16,10 +17,7 @@ export class VideoComponent implements OnInit {
   rkSqueezeValue = 0
   rkRestValue = 0
   rkRepsValue = 0
-  playAni = true;
-  addClass = true;
-  type = "long"
-  exercise = [ { squeeze : 3, rest : 0, reps : 3 }, { squeeze : 5 , rest : 0, reps : 2 } ]
+  seconds : number;
 
   constructor(private _configServ : ConfigurationService) {
     this._configServ.longSqueezeValue.subscribe(value=>{
@@ -149,6 +147,8 @@ firstFunction(){
   let firstRep = countdown1;
   let wait = this.shortSqueezeValue;
   let shortSqueeze = this.shortRestValue;
+  let seconds1
+  
 
 startTimer2()
 
@@ -163,6 +163,23 @@ function startTimer2() {
       document.getElementsByTagName("circle")[0].classList.remove("circle1")
       document.getElementsByTagName("circle")[0].classList.add("circle2")
       outer[0].style.animationDuration = wait+'s';
+
+      seconds1 = wait;
+
+      function timer(){
+          var i = setInterval(function(){
+
+            if (seconds1 <= 0) {
+              clearInterval(i);
+             }
+             else{
+               seconds1 = seconds1 - 1;
+               console.log(seconds1);
+             }
+          }, 1000)
+      }
+
+      timer()
 
       startTimer3();
       countdown1--;
@@ -250,6 +267,7 @@ function startTimer() {
   }
 }, shortSqueeze*1000);
 }
+
 
 }
 

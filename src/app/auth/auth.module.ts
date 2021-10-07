@@ -8,6 +8,7 @@ import { AuthComponent } from './auth.component';
 import { LoginComponent } from './pages/login/login.component';
 import { SignupComponent } from './pages/signup/signup.component';
 import { ForgetComponent } from './pages/forget/forget.component';
+import { ResetComponent } from './pages/reset/reset.component';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { ForgetComponent } from './pages/forget/forget.component';
     AuthComponent,
     LoginComponent,
     SignupComponent,
-    ForgetComponent
+    ForgetComponent,
+    ResetComponent
   ],
   imports: [
     CommonModule,

@@ -12,11 +12,11 @@ export class HttpserviceService {
   get(url:string):Observable<any>{
     return this._http.get<any>(url);
   }
-  post(url:string, obj:object):Observable<any>{
+  post(url:string, obj:any):Observable<any>{
     return this._http.post<any>(url, obj);
   }
-  update(url:string, id:string, obj: object):Observable<any>{
-    return this._http.put<any>(url, id, obj);
+  update(url:string, obj: object):Observable<any>{
+    return this._http.put<any>(url, obj);
   }
   delete(url:string, id:string):Observable<any>{
     return this._http.delete<any>(url);

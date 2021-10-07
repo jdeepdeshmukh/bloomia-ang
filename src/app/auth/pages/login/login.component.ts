@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { valueChanges } from 'src/app/helper/formerror.helper';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { AuthserviceService } from 'src/app/auth/services/authservice.service';
+import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-login',
@@ -11,6 +13,7 @@ import { AuthserviceService } from 'src/app/auth/services/authservice.service';
 export class LoginComponent implements OnInit {
 
   userLogin : FormGroup;
+  message : string;
 
   createForm(){
     this.userLogin = this._fb.group({
@@ -40,7 +43,8 @@ export class LoginComponent implements OnInit {
     }
   };
 
-  constructor(private _fb : FormBuilder, private _authService : AuthserviceService) { }
+  constructor(private _fb : FormBuilder, private _authService : AuthserviceService, private _router : Router,
+    private _cookieServ : CookieService) { }
 
   submit(){
     if (this.userLogin.invalid) {
@@ -48,11 +52,26 @@ export class LoginComponent implements OnInit {
       this.formErrors = valueChanges(this.userLogin, {...this.formErrors}, this.formErrorMessages);
       return;
     }
-    this._authService.login(this.userLogin.value).subscribe((data)=>{
-      console.log(data)
-    });
+    console.log(this.userLogin.value);
 
-  }
+    this._authService.login(this.userLogin.value).subscribe((result)=>{
+      console.log(result.result.sucess)
+        if(result.result.sucess == true)
+        {
+          localStorage.setItem("user", result.result.token)
+        
+          this._router.navigate(["/home"])
+      }
+  },(err)=>{
+    
+    if(err.result.status == 401){
+        this.message = err.message
+    }
+    else{
+      this.message = "Something went wrong"
+    }
+  })
+}
 
   ngOnInit(): void {
     this.createForm()
