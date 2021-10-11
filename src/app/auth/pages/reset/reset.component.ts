@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { valueChanges } from 'src/app/helper/formerror.helper';
+import { ActivatedRoute, Router } from '@angular/router';
+import { valueChanges, passwordValidation  } from 'src/app/helper/formerror.helper';
 import { AuthserviceService } from '../../services/authservice.service';
 
 @Component({
@@ -11,14 +12,20 @@ import { AuthserviceService } from '../../services/authservice.service';
 export class ResetComponent implements OnInit {
 
   resetForm : FormGroup;
+  message : string;
 
-  constructor(private _authServ : AuthserviceService, private _fb : FormBuilder) { }
+  constructor(private _authServ : AuthserviceService, private _fb : FormBuilder, private _actRoute : ActivatedRoute,
+    private _router : Router) { }
 
 
   createForm(){
     this.resetForm = this._fb.group({
-      password : ["", [Validators.required]],
-      newPassword : ["", [Validators.required]]
+      _id : null,
+      password : ["", [Validators.required, Validators.minLength(6)]],
+      newPassword : ["", [Validators.required, Validators.minLength(6)]]
+    },
+    {
+      validators: [passwordValidation.match('password', 'newPassword')]
     })
 
     this.resetForm.valueChanges.subscribe(() => {
@@ -27,13 +34,19 @@ export class ResetComponent implements OnInit {
   }
 
   formErrors = {
-    password: ''
+    password: '',
+    newPassword: ''
   };
 
   formErrorMessages = {
     password: {
-      required: 'Email is Required',
-      pattern: 'Valid email is required'
+      required: 'New Password is Required',
+      minlength: 'Minimum length must be 6'
+    },
+    newPassword: {
+      required: 'Confirm Password is Required',
+      minlength: 'Minimum length must be 6',
+      matching: 'New Password and confirm password should be same'
     }
   };
 
@@ -44,10 +57,19 @@ export class ResetComponent implements OnInit {
       this.formErrors = valueChanges(this.resetForm, {...this.formErrors}, this.formErrorMessages);
       return;
     }
-    console.log(this.resetForm.value);
-    this._authServ.forgotPassword(this.resetForm.value).subscribe((result)=>{
+    this.resetForm.value._id = this._actRoute.snapshot.params.id
+
+    this._authServ.resetPassword({
+      "_id" : this.resetForm.value._id,
+      "newPassword" : this.resetForm.value.password
+    }).subscribe((result)=>{
       console.log(result);
-      
+      if(result.sucess == true){
+        this._router.navigate(["/"])
+      }
+      else{
+        this.message = "Something went wrong";
+      }
     })
   }
 

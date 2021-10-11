@@ -61,11 +61,23 @@ export class LoginComponent implements OnInit {
           localStorage.setItem("user", result.result.token)
         
           this._router.navigate(["/home"])
-      }
+      }else if(result.result.status == 401){
+        this.message = result.result.message
+    }else if(result.result.status == 404){
+      this.message = result.result.message
+    }else if(result.result.status == 403){
+      this.message = result.result.message
+    }
+    else{
+      this.message = "Something went wrong"
+    }
   },(err)=>{
     
     if(err.result.status == 401){
         this.message = err.message
+    }else if(err.result.status == 404){
+      console.log("yes");
+      this.message = err.message
     }
     else{
       this.message = "Something went wrong"

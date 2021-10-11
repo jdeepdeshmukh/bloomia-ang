@@ -13,6 +13,8 @@ export class ForgetComponent implements OnInit {
   constructor(private _authServ : AuthserviceService, private _fb : FormBuilder) { }
 
   forgotForm : FormGroup;
+  message : string;
+  error : string;
 
   createForm(){
     this.forgotForm = this._fb.group({
@@ -45,7 +47,9 @@ export class ForgetComponent implements OnInit {
     console.log(this.forgotForm.value);
     this._authServ.forgotPassword(this.forgotForm.value).subscribe((result)=>{
       console.log(result);
-      
+      if(result.sucess == true){
+        this.message = result.message
+      }
     })
   }
 

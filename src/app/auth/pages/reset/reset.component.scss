@@ -10,11 +10,6 @@
 .logo img{
     width: 200px;
 }
-.body{
-    width: 70%;
-    margin: auto;
-    margin-top: 7rem;
-}
 .title h3{
     display: flex;
     justify-content: center;
@@ -27,7 +22,15 @@
     color: #979797;
     font-size: 16px;
 }
-.input-group{
+.form{
+    width: 65%;
+    margin: auto;
+}
+.form-group{
+    margin-bottom: .8rem;
+    font-family: "gillroy-semi";
+}
+.input-group1{
     display: inline-block;
     width: 90%;
 }
@@ -42,6 +45,7 @@
 }
 .authinput:focus{
     outline: none;
+    box-shadow: none;
 }
 .input-group-append{
     display: inline-block;
@@ -58,18 +62,46 @@
     color: black;
     font-weight: 600;
 }
-.button{
-    width: 100%;
+::placeholder{
+    color: black;
+    font-weight: 600;
+}
+.errors{
+    font-size: 12px;
+}
+.icon{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ebebeb;
+    border-radius: 10px;
+}
+.forgot{
+    text-align: right;
+    margin-bottom: 11px;
+    font-weight: 600;
+}
+.forgot a{
+    cursor: pointer;
+    text-decoration: none;
+    color: #979797;
     font-family: "gillroy-semi";
 }
-.signinbtn{
+.button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.button .submit{
+    padding: 10px 20px;
+    width: 100%;
     background-color: rgb(47, 69, 197);
     color: #fff;
     align-items: center;
-    margin-top: 16px;
+    margin-bottom: 16px;
     font-size: 15px;
+    font-family: "gillroy-semi";
     border-radius: 8px;
-    width: 100%;
 }
 .custom-text{
     position: relative;
@@ -79,11 +111,27 @@
     color: #979797;
     font-size: 13px;
     font-weight: 400;
+    font-family: "gillroy-semi";
+}
+.else p{
+    color: #979797;
+    font-family: "gillroy-semi";
+}
+.googlebtn{
+    background-color: transparent;
+    border: 1px solid black;
+    border-radius: 10px;
+    font-family: "gillroy-semi";
+    padding: 9px 40px;
+}
+.googlebtn span, i{
+    font-size: 12px;
+    font-weight: 400;
 }
 .bottom{
     position: fixed;
     align-items: center;
-    margin-top: 9rem;
+    bottom: 20px;
     color: #979797;
     font-size: 16px;
     font-weight: 400;
@@ -91,7 +139,4 @@
 .bottom a{
     text-decoration: none;
     color: #000;
-}
-.errors{
-    font-size:12px;
 }

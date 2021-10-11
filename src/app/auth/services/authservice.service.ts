@@ -18,5 +18,8 @@ export class AuthserviceService {
   forgotPassword(obj){
     return this._httpServices.update(environment.serverUrl+'users/forgetPassword', obj);
   }
+  resetPassword(obj){
+    return this._httpServices.update(environment.serverUrl+'users/resetPassword', obj);
+  }
 }
 

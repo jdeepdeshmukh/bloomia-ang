@@ -11,22 +11,27 @@ import { UserService } from '../../services/user.service';
 })
 export class HeaderComponent implements OnInit {
   name : string;
-
-  constructor(private _headerServ : HeaderService, public _router : Router, private _cookieServ : CookieService,
-    private _userServ : UserService) {
+  
+  constructor(private _headerServ : HeaderService, public _router : Router, private _userServ : UserService) {
      this._headerServ.subject.subscribe(name=>{
        this.name = name
      });
-   }
+     
+    }
 
    logout(){
-    this._cookieServ.delete("user");
+     localStorage.removeItem("user")
    }
 
   ngOnInit(): void {
     this._userServ.getUser().subscribe((result)=>{
-  document.getElementById("avatarImage").setAttribute("src", "https://bloomia.herokuapp.com/"+String(result.result.data.profileImage))
-});
+      console.log(result);
+        document.getElementById("avatarImage").setAttribute("src", "https://bloomia.herokuapp.com/"+result.result.data.profileImage)
+    });
+    this._headerServ.img.subscribe(img=>{
+      console.log(img);
+      document.getElementById("avatarImage").setAttribute("src", "https://bloomia.herokuapp.com/"+img)
+     });
   }
 
 }

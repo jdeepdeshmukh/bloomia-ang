@@ -19,7 +19,7 @@ export class SignupComponent implements OnInit {
       first_name : ["", Validators.required],
       last_name : ["", Validators.required],
       email : ["", [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")]],
-      number : [123456789],
+      contact : [123456789],
       password : ["", [Validators.required, Validators.minLength(6)]]
     }
     )
@@ -67,7 +67,7 @@ export class SignupComponent implements OnInit {
 
     this._authService.signup(this.userRegistration.value).subscribe((result)=>{
       console.log(result);
-      if(result.result.sucess == true){
+      if(result.sucess == true){
         this._router.navigate(["/"])
     }
     }, (err)=>{

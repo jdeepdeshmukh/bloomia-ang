@@ -10,4 +10,5 @@ export class HeaderService {
   }
   
   subject = new BehaviorSubject("");
+  img = new BehaviorSubject("");
 }

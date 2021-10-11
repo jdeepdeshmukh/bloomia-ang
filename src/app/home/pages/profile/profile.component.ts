@@ -19,9 +19,9 @@ export class ProfileComponent implements OnInit {
   success : String;
   error : String;
   imageUploaded = false;
-  imagePath : '../../../../assets/avatar.jpg';
   showCropped = false;
   finalFile;
+  imageRemoved = false;
   
   dataURItoBlob(dataURI) {
     const byteString = window.atob(dataURI);
@@ -151,14 +151,11 @@ export class ProfileComponent implements OnInit {
        console.log(result);
       if(result.sucess == true)
       {
-        this.imageUploaded = true;
+        this.imageUploaded = false;
+        document.getElementById("avatarImage1").setAttribute("src", "https://bloomia.herokuapp.com/"+result.data.profileImage);
+        this._headerServ.img.next(result.data.profileImage);
       }
-
-      document.getElementById("avatarImage").setAttribute("src", "https://bloomia.herokuapp.com/"+String(result.data.profileImage))
-       
-     })
-
-     
+     })     
    }
 
    cancelImage(){
@@ -273,7 +270,8 @@ export class ProfileComponent implements OnInit {
         email : result.result.data.email,
         contact : result.result.data.contact
     });
-    document.getElementById("avatar").setAttribute("src", "https://bloomia.herokuapp.com/"+String(result.result.data.profileImage))
+      // console.log(result.result.data.profileImage);
+      document.getElementById("avatarImage1").setAttribute("src", "https://bloomia.herokuapp.com/"+result.result.data.profileImage)
   });
   }
 

@@ -1,40 +1,39 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
-import { Observable } from 'rxjs';
+import { CanActivate, Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class AuthGuard implements CanActivate {
 
-  constructor(private _cookie: CookieService, private _router : Router){}
+  constructor(private _router : Router){}
 
   canActivate(){
-    var cookie = this._cookie.get("user");
-    if(cookie){
+    var token = localStorage.getItem("user");
+    if(token){
       return true;
     }
     else{
-      this._router.navigate(["/login"]);
+      this._router.navigate(["/"]);
       return false;
     }
   }
   
 }
-export class AfterLogin implements CanActivate {
 
-  constructor(private _cookie: CookieService, private _router : Router){}
+// export class AfterLogin implements CanActivate {
 
-  canActivate(){
-    var cookie = this._cookie.get("user");
-    if(!cookie){
-      return true;
-    }
-    else{
-      this._router.navigate(["/home"]);
-      return false;
-    }
-  }
+//   constructor(private _router : Router){}
+
+//   canActivate(){
+//     if(!localStorage.getItem("user")){
+//       return true;
+//     }
+//     else{
+//       this._router.navigate(["/home"]);
+//       return false;
+//     }
+//   }
   
-}
+// }

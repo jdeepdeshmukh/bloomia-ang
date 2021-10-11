@@ -5,6 +5,7 @@ import { ForgetComponent } from './pages/forget/forget.component';
 import { LoginComponent } from './pages/login/login.component';
 import { ResetComponent } from './pages/reset/reset.component';
 import { SignupComponent } from './pages/signup/signup.component';
+import { AfterLogin } from 'src/app/guards/afterlogin.guard';
 
 const routes: Routes = [
   {
@@ -13,18 +14,22 @@ const routes: Routes = [
     children : [
       {
         path : "",
+        canActivate : [AfterLogin],
         component : LoginComponent
       },
       {
         path : "signup",
+        canActivate : [AfterLogin],
         component : SignupComponent
       },
       {
         path : "forget",
+        canActivate : [AfterLogin],
         component : ForgetComponent
       },
       {
-        path : "reset",
+        path : "Resetpassword/:id",
+        canActivate : [AfterLogin],
         component : ResetComponent
       }
     ]

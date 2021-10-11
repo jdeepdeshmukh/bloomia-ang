@@ -7,8 +7,10 @@
             <div class="body">
                 <div class="title text-center">
                     <h3>Welcome Back to Bloomia.</h3>
-                    <p>Please enter your address associated with bloomia account</p>
+                    <p>Please enter your email address associated with bloomia account</p>
                 </div>
+                <div class="message text-center text-success mb-2">{{message}}</div>
+                <div class="message text-center text-danger mb-2">{{error}}</div>
                 <form method="POST" [formGroup]="forgotForm">
                     <div class="form-group">
                         <div class="input-group">
